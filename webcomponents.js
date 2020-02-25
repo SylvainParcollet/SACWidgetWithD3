@@ -75,7 +75,7 @@
 
     d3Script.onload = () => 
   
-    customElements.define('sap-sapphiregauge', class SapphireGauge extends HTMLElement {
+    customElements.define('sap-d3gauge', class D3Gauge extends HTMLElement {
     constructor() {
         super();
 		//Constants
@@ -163,7 +163,7 @@
     set measureMax(value) {
         this._measureMax = value;
         
-    };
+	};
 
 
     get measureMin() {
@@ -185,6 +185,17 @@
 		this._measureVal = value;
 		
         this.redraw();
+	};
+	
+
+    get color() {
+        return this._colorCode;
+    }
+    set color(value) {
+        this._colorCode = value;
+		this._displayedColor = value;
+		this._ringColorCode = value;
+		this._needleColorCode = value;
     };
 
 	

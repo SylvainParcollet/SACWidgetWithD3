@@ -12,7 +12,7 @@
 		{
 			"kind": "main",
 			"tag": "sap-d3gauge",
-			"url": "https://github.wdf.sap.corp/pages/d035331/SAPPHIRE2019_Gauge/webcomponents.js",
+			"url": "https://github.com/davidhstocker/SACWidgetWithD3/webcomponents.js",
 			"properties": [
                 "measureMax",
 				"measureMin",
@@ -25,7 +25,7 @@
 		{
 			"kind": "styling",
 			"tag": "sap-d3gauge-aps",
-			"url": "https://github.wdf.sap.corp/pages/d035331/SAPPHIRE2019_Gauge/aps_webcomponent.js",
+			"url": "https://github.com/davidhstocker/SACWidgetWithD3/aps_webcomponent.js",
 			"properties": [
 				"color"
 			],
@@ -51,7 +51,7 @@
 		},
 		"color": {
             "type": "string",
-            "description": "color of the gaige's vectors"
+            "description": "color of the gauge's vectors"
 		}
 	},
 	"methods": {
@@ -80,7 +80,10 @@
 	"events": {
 	   "onClick": {
 			"description": "Gauge was clicked"
-	   }
+	   },
+	   "color": {
+			"description": "The color of the widget was changed"
+   		}
 	}
 }
   

@@ -45,7 +45,11 @@
             this._outerRad = 0.0;
             this._endAngleDeg = 30.0;
             this._endAngleDegMax = 145.0;
-            this._startAngleDeg = -145.0;
+			this._startAngleDeg = -145.0;
+			
+			this._needleWidth = 2;
+			this._needleHeadLength = this._widgetHeight/2;
+			this._needleLineThickness = 2;
             
             //Guide Lines
             this._ringColorCode = 'black';

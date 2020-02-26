@@ -54,6 +54,8 @@
             this._endAngleDegMax = 145.0;
 			this._startAngleDeg = -145.0;
 			
+			this._fillNeedle = true;
+        	this._needleColorCode = 'black';
 			this._needleWidth = 2;
 			this._needleHeadLength;
 			this._needleLineThickness = 2;

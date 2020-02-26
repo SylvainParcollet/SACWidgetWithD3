@@ -26,7 +26,14 @@
         connectedCallback () {
             const bcRect = this.getBoundingClientRect();
             this._widgetHeight = bcRect.height;
-            this._widgetWidth = bcRect.width;
+			this._widgetWidth = bcRect.width;
+
+			if (bcRect.height < bcRect.width){
+				this._widgetHeight = bcRect.width;
+				this._needleHeadLength = bcRect.height/2;
+			} else {
+				this._needleHeadLength = bcRect.width/2;
+			}
             this.redraw();
         }
     
@@ -48,7 +55,7 @@
 			this._startAngleDeg = -145.0;
 			
 			this._needleWidth = 2;
-			this._needleHeadLength = this._widgetHeight/2;
+			this._needleHeadLength;
 			this._needleLineThickness = 2;
             
             //Guide Lines
@@ -85,13 +92,16 @@
 		//When the custom widget is resized on the canvas, the Custom Widget SDK framework executes the following JavaScript function call on the custom widget
 		// Commented out by default
 		onCustomWidgetResize(width, height){
-		
-		}
+            this._widgetHeight = width;
+			this._widgetWidth = height;
 
-        redraw() {
             if (this._widgetHeight < this._widgetWidth){
                 this._widgetWidth = this._widgetHeight;
             }
+			this._needleHeadLength = this._widgetWidth/2;		
+		}
+
+        redraw() {
 
             if (!this._svgContainer){
                 this._svgContainer = window._d3.select(this._shadowRoot)
@@ -156,7 +166,7 @@
 
 			//needleWaypoints is defined with positive y axis being up
 			//The initial definition of needleWaypoints is for a full diamond, but if this._enableIndicatorNeedleTail is false, we'll abbreviate to a chevron
-			var needleWaypoints = [{x: 0,y: this._needleHeadLength}, {x: needleWaypointOffset,y: 0}, {x: 0,y: (-1*this._needleTailLength)}, {x: (-1*needleWaypointOffset),y: 0}, {x: 0,y: this._needleHeadLength}]
+			var needleWaypoints = [{x: 0,y: this._needleHeadLength}, {x: needleWaypointOffset,y: 0}, {x: 0,y: 0}, {x: (-1*needleWaypointOffset),y: 0}, {x: 0,y: this._needleHeadLength}]
 			if (this._enableIndicatorNeedleTail == false){
 				if (this._fillNeedle == false){
 					//If we have no tail and no fill then there is no need to close the shape.

@@ -75,7 +75,7 @@
 
     d3Script.onload = () => 
   
-    customElements.define('sap-d3gauge', class D3Gauge extends HTMLElement {
+    customElements.define('sap-widgetwithd3', class D3Widget extends HTMLElement {
     constructor() {
         super();
 		//Constants
@@ -149,54 +149,45 @@
         this._measureTextPositionType = "upperCentral";
         this._drawGuideText = false;
 		this._guidePositioning = "end";
-		this.redraw();
     };
 
 
+	//Fired when the widget is added to the html DOM of the page
+	connectedCallback(){
+		this._firstConnection = true;
+		this.redraw(); 
+	}
 
-
-    
-
-    get measureMax() {
-        return this._measureMax;
-    }
-    set measureMax(value) {
-        this._measureMax = value;
-        
-	};
-
-
-    get measureMin() {
-        return this._measureMin;
-    }
-    set measureMin(value) {
-        this._measureMin = value;
-        
-    };
-
-    get measureVal() {
-        return this._measureVal;
-    }
-    set measureVal(value) {
-        if (this._svgContainer){
-			//super nasty hack, that needs to get cleaned up
-			this._svgContainer._groups[0][0].innerHTML = "";
-        }
-		this._measureVal = value;
-		
-        this.redraw();
-	};
+		//Fired when the widget is removed from the html DOM of the page (e.g. by hide)
+	disconnectedCallback(){
 	
+	}
 
-    get color() {
-        return this._colorCode;
-    }
-    set color(value) {
-        this._colorCode = value;
-		this._displayedColor = value;
-		this._ringColorCode = value;
-		this._needleColorCode = value;
-    };
+		//When the custom widget is updated, the Custom Widget SDK framework executes this function first
+	onCustomWidgetBeforeUpdate(oChangedProperties) {
+
+	}
+
+	//When the custom widget is updated, the Custom Widget SDK framework executes this function after the update
+	onCustomWidgetAfterUpdate(oChangedProperties) {
+		if (this._firstConnection){
+			this.redraw();
+		}
+	}
+	
+	//When the custom widget is removed from the canvas or the analytic application is closed
+	onCustomWidgetDestroy(){
+	
+	}
+
+	
+	//When the custom widget is resized on the canvas, the Custom Widget SDK framework executes the following JavaScript function call on the custom widget
+	// Commented out by default
+	/*
+	onCustomWidgetResize(width, height){
+	
+	}
+	*/
 
 	
 	

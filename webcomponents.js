@@ -104,9 +104,9 @@
         //New with Part 6
         this._useMeasures = true;
         this._endAngleDegMax = 145.0;
-        this._measureMax = 0;
+        this._measureMax = 100;
         this._measureMin = 0;
-        this._measureVal = 0;
+        this._measureVal = 70;
         
         //Part 7 conditional formatting
         this._colorCode = 'white';

@@ -119,7 +119,7 @@
             }
             
             var pi = Math.PI;		
-            this._outerRad = (this._widgetWidth)/2;
+            this._outerRad = (this._widgetHeight)/2;
 
 
             ///////////////////////////////////////////	

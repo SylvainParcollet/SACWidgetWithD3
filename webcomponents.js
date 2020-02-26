@@ -148,54 +148,51 @@
 			///////////////////////////////////////////
 			//Lets add the indicator needle
 			///////////////////////////////////////////
+			var needleWaypointOffset = this._needleWidth/2;
 
-			if (this._enableIndicatorNeedle == true){
-				var needleWaypointOffset = this._needleWidth/2;
-
-				//needleWaypoints is defined with positive y axis being up
-				//The initial definition of needleWaypoints is for a full diamond, but if this._enableIndicatorNeedleTail is false, we'll abbreviate to a chevron
-				var needleWaypoints = [{x: 0,y: this._needleHeadLength}, {x: needleWaypointOffset,y: 0}, {x: 0,y: (-1*this._needleTailLength)}, {x: (-1*needleWaypointOffset),y: 0}, {x: 0,y: this._needleHeadLength}]
-				if (this._enableIndicatorNeedleTail == false){
-					if (this._fillNeedle == false){
-						//If we have no tail and no fill then there is no need to close the shape.
-						//Leave it as an open chevron
-						needleWaypoints = [{x: needleWaypointOffset,y: 0}, {x: 0,y: this._needleHeadLength}, {x: (-1*needleWaypointOffset),y: 0}];
-					}
-					else {
-						//There is no tail, but we are filling the needle.
-						//In this case, draw it as a triangle
-						needleWaypoints = [{x: 0,y: this._needleHeadLength}, {x: needleWaypointOffset,y: 0}, {x: (-1*needleWaypointOffset),y: 0}, {x: 0,y: this._needleHeadLength}]
-					}
-
-				}
-
-				//we need to invert the y-axis and scale the indicator to the gauge.
-				//  If Y = 100, then that is 100% of outer radius.  So of Y = 100 and outerRad = 70, then the scaled Y will be 70.
-				var outerRad = this._outerRad;
-				var needleFunction = window._d3.line()
-					.x(function(d) { return (d.x)*(outerRad/100); })
-					.y(function(d) { return -1*(d.y)*(outerRad/100); });
-
-				//Draw the needle, either filling it in, or not
-				var needleFillColorCode = this._needleColorCode;
+			//needleWaypoints is defined with positive y axis being up
+			//The initial definition of needleWaypoints is for a full diamond, but if this._enableIndicatorNeedleTail is false, we'll abbreviate to a chevron
+			var needleWaypoints = [{x: 0,y: this._needleHeadLength}, {x: needleWaypointOffset,y: 0}, {x: 0,y: (-1*this._needleTailLength)}, {x: (-1*needleWaypointOffset),y: 0}, {x: 0,y: this._needleHeadLength}]
+			if (this._enableIndicatorNeedleTail == false){
 				if (this._fillNeedle == false){
-					needleFillColorCode = "none";
+					//If we have no tail and no fill then there is no need to close the shape.
+					//Leave it as an open chevron
+					needleWaypoints = [{x: needleWaypointOffset,y: 0}, {x: 0,y: this._needleHeadLength}, {x: (-1*needleWaypointOffset),y: 0}];
 				}
-				
-
-				var needle = this._svgContainer
-				.append("g")
-					.attr("transform", "translate(" + this._offsetLeft + "," + this._offsetDown + ")")
-				.append("path")
-					.datum(needleWaypoints)
-					.attr("class", "tri")
-					.attr("d", needleFunction(needleWaypoints))
-					.attr("stroke", this._needleColorCode)
-					.attr("stroke-width", this._needleLineThickness)
-					.attr("fill", needleFillColorCode)
-					.attr("transform", "rotate(" +  this._startAngleDeg + ")");;
+				else {
+					//There is no tail, but we are filling the needle.
+					//In this case, draw it as a triangle
+					needleWaypoints = [{x: 0,y: this._needleHeadLength}, {x: needleWaypointOffset,y: 0}, {x: (-1*needleWaypointOffset),y: 0}, {x: 0,y: this._needleHeadLength}]
+				}
 
 			}
+
+			//we need to invert the y-axis and scale the indicator to the gauge.
+			//  If Y = 100, then that is 100% of outer radius.  So of Y = 100 and outerRad = 70, then the scaled Y will be 70.
+			var outerRad = this._outerRad;
+			var needleFunction = window._d3.line()
+				.x(function(d) { return (d.x)*(outerRad/100); })
+				.y(function(d) { return -1*(d.y)*(outerRad/100); });
+
+			//Draw the needle, either filling it in, or not
+			var needleFillColorCode = this._needleColorCode;
+			if (this._fillNeedle == false){
+				needleFillColorCode = "none";
+			}
+			
+
+			var needle = this._svgContainer
+			.append("g")
+				.attr("transform", "translate(" + this._offsetLeft + "," + this._offsetDown + ")")
+			.append("path")
+				.datum(needleWaypoints)
+				.attr("class", "tri")
+				.attr("d", needleFunction(needleWaypoints))
+				.attr("stroke", this._needleColorCode)
+				.attr("stroke-width", this._needleLineThickness)
+				.attr("fill", needleFillColorCode)
+				.attr("transform", "rotate(" +  this._startAngleDeg + ")");;
+
 			
 	
         };

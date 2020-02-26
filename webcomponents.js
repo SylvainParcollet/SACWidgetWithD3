@@ -86,8 +86,7 @@
 		this._shadowRoot = this.attachShadow({mode: 'open'});
         this._shadowRoot.appendChild(tmpl.content.cloneNode(true));
 		this._svgContainer;
-		
-		/*
+
 
         this._enableArc = false;
         this._innerRad = 0.0;
@@ -152,7 +151,6 @@
         this._drawGuideText = false;
 		this._guidePositioning = "end";
 
-		*/
     };
 
 

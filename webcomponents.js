@@ -168,20 +168,7 @@
 
 			//needleWaypoints is defined with positive y axis being up
 			//The initial definition of needleWaypoints is for a full diamond, but if this._enableIndicatorNeedleTail is false, we'll abbreviate to a chevron
-			var needleWaypoints = [{x: 0,y: this._needleHeadLength}, {x: needleWaypointOffset,y: 0}, {x: 0,y: 0}, {x: (-1*needleWaypointOffset),y: 0}, {x: 0,y: this._needleHeadLength}]
-			if (this._enableIndicatorNeedleTail == false){
-				if (this._fillNeedle == false){
-					//If we have no tail and no fill then there is no need to close the shape.
-					//Leave it as an open chevron
-					needleWaypoints = [{x: needleWaypointOffset,y: 0}, {x: 0,y: this._needleHeadLength}, {x: (-1*needleWaypointOffset),y: 0}];
-				}
-				else {
-					//There is no tail, but we are filling the needle.
-					//In this case, draw it as a triangle
-					needleWaypoints = [{x: 0,y: this._needleHeadLength}, {x: needleWaypointOffset,y: 0}, {x: (-1*needleWaypointOffset),y: 0}, {x: 0,y: this._needleHeadLength}]
-				}
-
-			}
+			needleWaypoints = [{x: 0,y: this._needleHeadLength}, {x: needleWaypointOffset,y: 0}, {x: (-1*needleWaypointOffset),y: 0}, {x: 0,y: this._needleHeadLength}]
 
 			//we need to invert the y-axis and scale the indicator to the gauge.
 			//  If Y = 100, then that is 100% of outer radius.  So of Y = 100 and outerRad = 70, then the scaled Y will be 70.

@@ -239,7 +239,7 @@
 			//Lets build a border ring around the gauge
 			///////////////////////////////////////////
 			if (this._enableGuideRing == true){
-				var visRing = window._d3.select(myDiv).append("svg:svg").attr("width", "100%").attr("height", "100%");
+				var visRing = window._d3.select(this._svgContainer).append("svg:svg").attr("width", "100%").attr("height", "100%");
 				
 				var ringOuterRad = this._outerRad + ( -1 * this._ringThickness);  //Outer ring starts at the outer radius of the inner arc
 		
@@ -259,7 +259,7 @@
 			//Lets build a the start and end lines
 			///////////////////////////////////////////
 			if (this._enableGuideLines == true){
-				var visStartBracket = window._d3.select(myDiv).append("svg:svg").attr("width", "100%").attr("height", "100%");
+				var visStartBracket = window._d3.select(this._svgContainer).append("svg:svg").attr("width", "100%").attr("height", "100%");
 				var lineData = [endPoints (this._outerRad, this._startAngleDeg), {x:this._offsetLeft, y:this._offsetDown}, endPoints (this._outerRad, this._endAngleDegMax)];
 				var lineFunction = window._d3.line()
 					.x(function(d) { return d.x; })
@@ -383,7 +383,7 @@
 					.delay(tempAnimationDelay);
 					//.ease(animationEase);
 			}
-			*/
+			
 
 			if ((this._enableIndicatorNeedleBase == true) && (this._enableIndicatorNeedle == true)){
 				var theD3 = window._d3;
@@ -401,6 +401,7 @@
 					});		
 				
 			}
+			*/
 			
 			//Guide Ring and Lines
 			var localFadeDelay = this._animationDelayOpacity;

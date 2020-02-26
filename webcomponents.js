@@ -115,8 +115,8 @@
         this._colorArray = 1;  //abusing JS duck typing here.  ;-)
         
         //Part 8 Guide Lines
-        this._enableGuideLines = false;
-        this._enableGuideRing = false;
+        this._enableGuideLines = true;
+        this._enableGuideRing = true;
         this._ringColorCode = 'blue';
         this._guideOpacity = 0.75;
         this._ringThickness = 5;
@@ -234,26 +234,6 @@
 				alert("Warning!  The gauge arc can't have a negative radius!  Please decrease the inner radius, or increase the size of the control.  Height & width (including subtraction for padding) must me at least twice as large as Internal Radius!");
 			} 
 			
-			//The offset will determine where the center of the arc shall be
-			//this._offsetLeft = this._outerRad + this._paddingLeft;
-			this._offsetLeft = this._outerRad + this._paddingLeft + 3;  //dirty hack
-			this._offsetDown = this._outerRad + this._paddingTop;
-
-			if (this._enableArc == true){
-				var arcDef = window._d3.svg.arc()
-					.innerRadius(this._innerRad)
-					.outerRadius(this._outerRad);
-		
-				var guageArc = this._svgContainer.append("path")
-					.datum({endAngle: this._startAngleDeg * (pi/180), startAngle: this._startAngleDeg * (pi/180)})
-					.style("fill", this._displayedColor)
-					.attr("width", this._widgetWidth).attr("height", this._widgetWidth) // Added height and width so arc is visible
-					.attr("transform", "translate(" + this._offsetLeft + "," + this._offsetDown + ")")
-					.attr("d", arcDef)
-					.attr( "fill-opacity", this._gaugeOpacity );
-
-			}
-			
 			//Part 8 - The guide lines
 			///////////////////////////////////////////	
 			//Lets build a border ring around the gauge
@@ -346,55 +326,8 @@
 					.attr("transform", "rotate(" +  this._startAngleDeg + ")");;
 
 			}
-
-
-			///////////////////////////////////////////
-			//Lets add a needle base pin
-			///////////////////////////////////////////			
-
-
-			if ((this._enableIndicatorNeedleBase == true) && (this._enableIndicatorNeedle == true)){
-				// Like the rest of the needle, the size of the pin is defined relative to the main arc, as a % value
-				var needleIBasennerRadius = (this._needleBaseWidth/2)*(this._outerRad/100) - (this._needleLineThickness/2); 
-				var needleBaseOuterRadius = needleIBasennerRadius + this._needleLineThickness; 
-				if (this._fillNeedlaBasePin == true){
-					needleIBasennerRadius = 0.0;
-				}
-				
-
-				// The pin will either be a 180 degree arc, or a 360 degree ring; starting from the 9 O'clock position.
-				var needleBaseStartAngle = 90.0;
-				var needleBaseEndAngle = 270.0;
-				if (this._fullBasePinRing == true){
-					needleBaseEndAngle = 450.0;
-				}
-
-				//Don't let the arc have a negative length
-				if (needleBaseEndAngle < needleBaseStartAngle){
-					needleBaseEndAngle = needleBaseStartAngle;
-					alert("End angle of outer ring may not be less than start angle!");
-				}
-
-				//Transfomation for the Pin Ring
-				// We won't apply it just yet
-				var nbpTransformedStartAngle = needleBaseStartAngle + this._startAngleDeg;
-				var nbpTransformedEndAngle = needleBaseEndAngle + this._startAngleDeg;
-				
-				var nbTransformedStartAngle = needleBaseStartAngle + this._endAngleDeg;
-				var nbTransformedEndAngle = needleBaseEndAngle + this._endAngleDeg;
-
-				var pinArcDefinition = window._d3.arc()
-					.innerRadius(needleIBasennerRadius)
-					.outerRadius(needleBaseOuterRadius);
-
-				var pinArc = this._svgContainer.append("path")
-					.datum({endAngle: nbpTransformedEndAngle * (pi/180), startAngle: nbpTransformedStartAngle * (pi/180)})
-					.attr("d", pinArcDefinition)
-					.attr("fill", this._needleColorCode)
-					.attr("transform", "translate(" + this._offsetLeft + "," + this._offsetDown + ")");	
-			}
 			
-			
+			/*
 			///////////////////////////////////////////
 			//Lets add our animations
 			///////////////////////////////////////////			
@@ -450,6 +383,8 @@
 					.delay(tempAnimationDelay);
 					//.ease(animationEase);
 			}
+			*/
+
 			if ((this._enableIndicatorNeedleBase == true) && (this._enableIndicatorNeedle == true)){
 				var theD3 = window._d3;
 				pinArc.transition()
@@ -492,114 +427,7 @@
 			}
 			
 			
-			
-			//////////////////////////////////
-			// Callouts
-			//////////////////////////////////
-			
-			var calloutTextStart = "" + this._measureMin;
-			var calloutTextEnd = "" + this._measureMax;
-			var calloutTextMeasure = "" + this._measureVal;
-			if(this._useMeasures == false){
-				calloutTextStart = "" + this._startAngleDeg;
-				calloutTextEnd = "" + this._endAngleDegMax;
-				calloutTextMeasure = "" + this._endAngleDeg;
-				
-			}
-			
-			//Measure Text Positioning
-			if (this._drawMeasureText == true){
-				var measurePosition = {};
-				var measureTextPosition = {};
-				if (this._measureTextPositionType == "endpoint"){
-					measurePosition = endPoints (this._outerRad, this._endAngleDeg);
-					measureTextPosition = ["start", "1em"];
-					if ((measurePosition.x - this._offsetLeft) < 0){
-						measureTextPosition[0] = "end";
-					}
-					if ((measurePosition.y - this._offsetDown) < 0){
-						measureTextPosition[1] = "0em";
-					} 
-				}
-				else{
-					// Hack Alert!
-					//As of now, MS browsers don"t support the dominant baseline SVG property.  
-					//  Using the dy property with a Xem offset is the hackish workaround
-					// https://msdn.microsoft.com/en-us/library/gg558060(v=vs.85).aspx
-					if (this._measureTextPositionType == "top"){
-						measurePosition = endPoints (outerRad, 0);
-						measureTextPosition = ["middle", "-.15em"];
-						//measureTextPosition = ["middle", "text-before-edge"];
-					}
-					else if (this._measureTextPositionType == "upperCentral"){
-						measurePosition = endPoints (this._outerRad/2, 0);
-						measureTextPosition = ["middle", "-.15em"];
-						//measureTextPosition = ["middle", "text-before-edge"];
-					}
-					else if (this._measureTextPositionType == "upperIdeographic"){
-						measurePosition = endPoints (1, 0);
-						measureTextPosition = ["middle", "-.15em"];
-						//measureTextPosition = ["middle", "text-before-edge"];
-					}
-					else if (this._measureTextPositionType == "lowerIdeographic"){
-						measurePosition = endPoints (1, 180);
-						measureTextPosition = ["middle", "1.1em"];
-						//measureTextPosition = ["middle", "text-after-edge"];
-					}
-					else if (this._measureTextPositionType == "lowerCentral"){
-						measurePosition = endPoints (this._outerRad/2, 180);
-						measureTextPosition = ["middle", "1.1em"];
-						//measureTextPosition = ["middle", "text-after-edge"];
-					}
-					else if (this._measureTextPositionType == "bottom"){
-						measurePosition = endPoints (this._outerRad, 180);
-						measureTextPosition = ["middle", "1.1em"];
-						//measureTextPosition = ["middle", "text-after-edge"];
-					}
-				}	
 
-				//http://bl.ocks.org/eweitnauer/7325338
-				vthis._svgContaineris.append("text")
-					.attr("transform", "translate(" + measurePosition.x+ "," + measurePosition.y+ ")")
-					.text(calloutTextMeasure)
-					.attr("text-anchor", measureTextPosition[0])
-					//.attr("dominant-baseline", measureTextPosition[1]);
-					.attr("dy", measureTextPosition[1]);
-			}	
-
-			//Guide Positioning
-			if (this._drawGuideText == true){
-				var guidePositionStart = {};
-				var guidePositionEnd = {};
-				var isMiddleCO = false;
-				if (this._guidePositioning == "end"){
-					guidePositionStart = endPoints (this._outerRad, this._startAngleDeg);
-					guidePositionEnd = endPoints (this._outerRad, this._endAngleDegMax);
-				}
-				else {
-					guidePositionStart = endPoints (this._outerRad/2, this._startAngleDeg);
-					guidePositionEnd = endPoints (this._outerRad/2, this._endAngleDegMax);
-				}
-				var guideTextPositionStart = textPositioning (guidePositionStart.x, guidePositionStart.y, true);
-				var guideTextPositionEnd= textPositioning (guidePositionEnd.x, guidePositionEnd.y);
-
-				//Start Text
-				this._svgContainer.append("text")
-					.attr("transform", "translate(" + guidePositionStart.x + "," + guidePositionStart.y + ")")
-					.text(calloutTextStart)
-					.attr("text-anchor", guideTextPositionStart[0])
-					//.attr("dominant-baseline", guideTextPositionStart[1]);	
-					.attr("dy", guideTextPositionStart[1]);
-
-				//End Text
-				this._svgContainer.append("text")
-					.attr("transform", "translate(" + guidePositionEnd.x + "," + guidePositionEnd.y + ")")
-					.text(calloutTextEnd)
-					//.attr("text-anchor", "start")
-					.attr("text-anchor", guideTextPositionEnd[0])
-					//.attr("dominant-baseline", guideTextPositionEnd[1]);	
-					.attr("dy", guideTextPositionEnd[1]);
-			}	
 		}	
 
 	

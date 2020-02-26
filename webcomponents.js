@@ -108,19 +108,22 @@
 
         redraw() {
 
+			this._offsetLeft = this._widgetWidth/2;
+			this._offsetDown = this._widgetHeight/2;
+
             if (!this._svgContainer){
                 this._svgContainer = window._d3.select(this._shadowRoot)
                 .append("svg:svg")
                 .attr("id", "gauge")
                 .attr("width", this._widgetWidth)
-                .attr("height", this._widgetWidth);
+                .attr("height", this._widgetHeight;
             } else{
                 window._d3.select(this._shadowRoot).selectAll("*").remove();
                 this._svgContainer = window._d3.select(this._shadowRoot)
                 .append("svg:svg")
                 .attr("id", "gauge")
                 .attr("width", this._widgetWidth)
-                .attr("height", this._widgetWidth);
+                .attr("height", this._widgetHeight);
             }
             
             var pi = Math.PI;		

@@ -34,18 +34,23 @@
 			} else {
 				this._needleHeadLength = bcRect.width/2;
 			}
-            this.redraw();
+
+			this._firstConnection = true;
+            this.redraw(); 
         }
     
         constructor() {
-            super();
+			super();
+
+            this._shadowRoot = this.attachShadow({mode: 'open'});
+			this._shadowRoot.appendChild(tmpl.content.cloneNode(true));
+			this._firstConnection = false;
+
             //Constants
             if (!window._d3){
                 window._d3 = d3;
-            }
-            
-            this._shadowRoot = this.attachShadow({mode: 'open'});
-            this._shadowRoot.appendChild(tmpl.content.cloneNode(true));
+			}
+
             this.style.height = "100%";  //Beta Workaround
             this._svgContainer;
     
@@ -83,9 +88,10 @@
 	
 		//When the custom widget is updated, the Custom Widget SDK framework executes this function after the update
 		onCustomWidgetAfterUpdate(oChangedProperties) {
-			if (this._firstConnection){
-				this.redraw();
-			}
+			//if (this._firstConnection){
+			//	this.redraw();
+			//}
+			this.redraw();
 		}
 		
 		//When the custom widget is removed from the canvas or the analytic application is closed

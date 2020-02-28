@@ -148,6 +148,7 @@
 					.attr("d", ringArcDefinition)
 					.attr("fill", this._ringColorCode)
 					.attr("transform", "translate(" + this._offsetLeft + "," + this._offsetDown + ")");
+			}
 				
 			///////////////////////////////////////////
 			//Lets add the indicator needle

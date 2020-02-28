@@ -162,7 +162,12 @@
 				.attr("stroke", this._needleColorCode)
 				.attr("stroke-width", this._needleLineThickness)
 				.attr("fill", needleFillColorCode)
-				.attr("transform", "rotate(" +  this._startAngleDeg + ")");
+				.transition()
+				.duration(0)
+				.attr("transform", "rotate(" +  this._startAngleDeg + ")")
+				.transition()
+				.duration(1000)
+				.attr("transform", "rotate(" +  this._endAngleDeg + ")");
 
 			
 	

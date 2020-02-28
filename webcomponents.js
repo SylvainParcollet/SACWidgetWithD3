@@ -116,7 +116,7 @@
                 .append("svg:svg")
                 .attr("id", "gauge")
                 .attr("width", this._widgetWidth)
-                .attr("height", this._widgetHeight;
+                .attr("height", this._widgetHeight);
             } else{
                 window._d3.select(this._shadowRoot).selectAll("*").remove();
                 this._svgContainer = window._d3.select(this._shadowRoot)

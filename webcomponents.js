@@ -127,7 +127,27 @@
             }
             
             var pi = Math.PI;		
-            this._outerRad = (this._widgetHeight)/2;
+			this._outerRad = (this._widgetHeight)/2;
+			
+			///////////////////////////////////////////	
+			//Lets build a border ring around the gauge
+			///////////////////////////////////////////
+			if (this._enableGuideRing == true){
+				var visRing = window._d3.select(this._svgContainer).append("svg:svg").attr("width", "100%").attr("height", "100%");
+				
+				var ringOuterRad = this._outerRad + ( -1 * this._ringThickness);  //Outer ring starts at the outer radius of the inner arc
+		
+				var ringArcDefinition = window._d3.svg.arc()
+					.innerRadius(this._outerRad)
+					.outerRadius(ringOuterRad)
+					.startAngle(this._startAngleDeg * (pi/180)) //converting from degs to radians
+					.endAngle(this._endAngleDegMax * (pi/180)) //converting from degs to radians
+		
+				var ringArc = this._svgContainer
+					.append("path")
+					.attr("d", ringArcDefinition)
+					.attr("fill", this._ringColorCode)
+					.attr("transform", "translate(" + this._offsetLeft + "," + this._offsetDown + ")");
 				
 			///////////////////////////////////////////
 			//Lets add the indicator needle

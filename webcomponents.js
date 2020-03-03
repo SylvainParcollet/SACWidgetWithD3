@@ -101,9 +101,9 @@
 
 			if (this._widgetHeight > this._widgetWidth ){
 				this._widgetHeight = this._widgetWidth ;
-				this._needleHeadLength = bcRect.height/2;
+				this._needleHeadLength = this._widgetHeight/2;
 			} else {
-				this._needleHeadLength = bcRect.width/2;
+				this._needleHeadLength = this._widgetWidth/2;
 			}
             this._needleColorCode = 'black';
             console.log("onCustomWidgetAfterUpdate");

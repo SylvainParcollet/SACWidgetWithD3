@@ -191,7 +191,7 @@
 				.duration(0)
 				.attr("transform", "rotate(" +  this._startAngleDeg + ")")
 				.transition()
-				.duration(1000)
+				.duration(5000)
 				.attr("transform", "rotate(" +  this._endAngleDeg + ")");
 
 			

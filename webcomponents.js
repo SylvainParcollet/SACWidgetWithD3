@@ -37,8 +37,7 @@
 
             this._firstConnection = true;
             this._needleColorCode = 'red';
-            this.nNth++;
-            console.log(this.nNth);
+            console.log("connectedCallback");
 
             this.redraw(); 
         }
@@ -98,8 +97,7 @@
 			//	this.redraw();
             //}
             this._needleColorCode = 'black';
-            this.nNth++;
-            console.log(this.nNth);
+            console.log("onCustomWidgetAfterUpdate");
             this.redraw();
 		}
 		

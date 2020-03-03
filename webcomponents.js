@@ -35,7 +35,8 @@
 				this._needleHeadLength = bcRect.width/2;
 			}
 
-			this._firstConnection = true;
+            this._firstConnection = true;
+            this._needleColorCode = 'black';
             this.redraw(); 
         }
     
@@ -90,8 +91,9 @@
 		onCustomWidgetAfterUpdate(oChangedProperties) {
 			//if (this._firstConnection){
 			//	this.redraw();
-			//}
-			this.redraw();
+            //}
+            this._needleColorCode = 'red';
+            this.redraw();
 		}
 		
 		//When the custom widget is removed from the canvas or the analytic application is closed

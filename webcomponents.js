@@ -39,7 +39,7 @@
             this._needleColorCode = 'red';
             console.log("connectedCallback");
 
-            setTimeout(() => { this.redraw();}, 20000);
+            //setTimeout(() => { this.redraw();}, 20000);
         }
     
         constructor() {

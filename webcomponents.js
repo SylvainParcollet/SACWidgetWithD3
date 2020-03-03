@@ -28,7 +28,7 @@
             this._widgetHeight = bcRect.height;
 			this._widgetWidth = bcRect.width;
 
-			if (bcRect.height < bcRect.width){
+			if (bcRect.height > bcRect.width){
 				this._widgetHeight = bcRect.width;
 				this._needleHeadLength = bcRect.height/2;
 			} else {
@@ -96,12 +96,11 @@
 			//if (this._firstConnection){
 			//	this.redraw();
             //}
-            const bcRect = this.getBoundingClientRect();
-            this._widgetHeight = bcRect.height;
-			this._widgetWidth = bcRect.width;
+            this._widgetHeight = 300;
+			this._widgetWidth = 320;
 
-			if (bcRect.height < bcRect.width){
-				this._widgetHeight = bcRect.width;
+			if (this._widgetHeight > this._widgetWidth ){
+				this._widgetHeight = this._widgetWidth ;
 				this._needleHeadLength = bcRect.height/2;
 			} else {
 				this._needleHeadLength = bcRect.width/2;

@@ -96,6 +96,16 @@
 			//if (this._firstConnection){
 			//	this.redraw();
             //}
+            const bcRect = this.getBoundingClientRect();
+            this._widgetHeight = bcRect.height;
+			this._widgetWidth = bcRect.width;
+
+			if (bcRect.height < bcRect.width){
+				this._widgetHeight = bcRect.width;
+				this._needleHeadLength = bcRect.height/2;
+			} else {
+				this._needleHeadLength = bcRect.width/2;
+			}
             this._needleColorCode = 'black';
             console.log("onCustomWidgetAfterUpdate");
             this.redraw();

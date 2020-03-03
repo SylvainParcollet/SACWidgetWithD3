@@ -36,7 +36,7 @@
 			}
 
             this._firstConnection = true;
-            this._needleColorCode = 'black';
+            this._needleColorCode = 'red';
             this.redraw(); 
         }
     
@@ -92,7 +92,7 @@
 			//if (this._firstConnection){
 			//	this.redraw();
             //}
-            this._needleColorCode = 'red';
+            this._needleColorCode = 'black';
             this.redraw();
 		}
 		

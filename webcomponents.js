@@ -37,6 +37,9 @@
 
             this._firstConnection = true;
             this._needleColorCode = 'red';
+            this.nNth++;
+            console.log(this.nNth);
+
             this.redraw(); 
         }
     
@@ -75,6 +78,8 @@
             this._ringThickness = 5;
             this._bracketThickness = 5;
 
+            this.nNth = 0;
+
             //Adding event handler for click events
 			this.addEventListener("click", event => {
 				var event = new Event("onClick");
@@ -93,6 +98,8 @@
 			//	this.redraw();
             //}
             this._needleColorCode = 'black';
+            this.nNth++;
+            console.log(this.nNth);
             this.redraw();
 		}
 		
